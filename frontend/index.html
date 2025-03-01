@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learn Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; }
+
+        .container { 
+            width: 60%; 
+            margin: 50px auto; 
+            padding: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            background: white; 
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1); 
+            display: none; 
+            position: relative; 
+        }
+
+        input, button { width: 100%; margin: 10px 0; padding: 10px; }
+        button { 
+            background-color: blue; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+        }
+        button:hover { background-color: darkblue; }
+
+        .home {
+            background: url('https://bernardmarr.com/wp-content/uploads/2022/04/The-10-Biggest-Technology-Trends-That-Will-Transform-The-Next-Decade.jpg') no-repeat center center/cover; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .home button { margin: 10px; padding: 15px; font-size: 16px; }
+
+        .navbar {
+            width: 100%;
+            background-color: blue;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .logout-btn {
+            display: none;
+            background: white;
+            color: blue;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .topic {
+            text-align: left;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        /* Updated Login Page Background */
+        #loginContainer {
+            background: url('https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-2048x1365.jpg') no-repeat center center/cover;
+            color: white; 
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Dark Overlay for Better Readability */
+        #loginContainer::before, #signupContainer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            z-index: -1;
+        }
+
+        /* Signup Page Background */
+        #signupContainer {
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr5LnqXL79CQKOrM4na1ehEZEzA0s0xUXoyA&s') no-repeat center center/cover;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>Tech Learn Hub</div>
+        <button id="logoutBtn" class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="home" id="homePage">
+        <h1>Welcome to Tech Learn Hub</h1>
+        <p>Explore courses on the latest technologies!</p>
+        <button onclick="showLogin()">Login</button>
+        <button onclick="showSignup()">Sign Up</button>
+    </div>
+
+    <div class="container" id="loginContainer">
+        <h2>Login</h2>
+        <input type="text" id="loginEmail" placeholder="Gmail" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
+    </div>
+
+    <div class="container" id="signupContainer">
+        <h2>Sign Up</h2>
+        <input type="text" id="signupName" placeholder="Full Name" required>
+        <input type="text" id="signupDepartment" placeholder="Department" required>
+        <input type="text" id="signupYear" placeholder="Year" required>
+        <input type="email" id="signupEmail" placeholder="Gmail" required>
+        <input type="password" id="signupPassword" placeholder="Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        <button onclick="signup()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+
+    <!-- Exit Page with Topics -->
+    <div class="container" id="exitPage">
+        <h1>Thanks for Visiting My Website!</h1>
+        <p>Here’s some information about the topics we covered:</p>
+
+        <div class="topic">
+            <h2>📱 Web Development</h2>
+            <p>Web development involves building and maintaining websites. It includes front-end (HTML, CSS, JavaScript) and back-end (Node.js, Python, PHP) technologies.</p>
+        </div>
+
+        <div class="topic">
+            <h2>🤖 AI & Machine Learning</h2>
+            <p>AI and ML involve creating intelligent systems that can learn from data and make decisions. Python libraries like TensorFlow and PyTorch are widely used.</p>
+        </div>
+
+        <div class="topic">
+            <h2>☁ Cloud Computing</h2>
+            <p>Cloud computing allows users to access and store data on remote servers instead of local devices. Popular platforms include AWS, Google Cloud, and Microsoft Azure.</p>
+        </div>
+
+        <div class="topic">
+            <h2>🔒 Cyber Security</h2>
+            <p>Cybersecurity focuses on protecting systems and networks from cyber threats. It involves encryption, firewalls, and ethical hacking practices.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleVisibility(showId) {
+            let sections = ['homePage', 'loginContainer', 'signupContainer', 'exitPage'];
+            sections.forEach(id => document.getElementById(id).style.display = (id === showId ? 'block' : 'none'));
+
+            document.getElementById('logoutBtn').style.display = (showId === 'exitPage' ? 'block' : 'none');
+        }
+
+        function showSignup() { toggleVisibility('signupContainer'); }
+        function showLogin() { toggleVisibility('loginContainer'); }
+        function showExitPage() { toggleVisibility('exitPage'); }
+        function logout() { alert('Logged out successfully!'); toggleVisibility('homePage'); }
+
+        function signup() {
+            let email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            if (localStorage.getItem(email)) {
+                alert('Account with this email already exists!');
+                return;
+            }
+            localStorage.setItem(email, JSON.stringify({ email }));
+            alert('Account created successfully!');
+            showLogin();
+        }
+
+        function login() {
+            let email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            if (localStorage.getItem(email)) {
+                alert('Login successful!');
+                showExitPage();
+            } else {
+                alert('User not found. Please sign up.');
+            }
+        }
+    </script>
+</body>
+</html>
